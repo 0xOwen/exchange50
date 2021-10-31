@@ -11,6 +11,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Expletus+Sans:ital,wght@1,700&display=swap" rel="stylesheet">
+    <title>
+      eX50|{% block title %} {% endblock %}
+    </title>
+
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -56,6 +60,10 @@
             </form>
         </div>
     </nav>
+
+    {% block body%}
+
+    {% endblock %}
 
     <footer class="footer-distributed">
 
