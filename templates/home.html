@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Home
+{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+          <div class="row" id="home">
+            <div class="col">
+              <!-- Add carousel and images here-->
+              <div class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-touch="false">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                </div>
+                <div class="carousel-inner" data-bs-interval="10000">
+                  <div class="carousel-item active">
+                    <img src="../static/img/forex5.jpg" class="d-block w-100" alt="ksh" id="carousel_image">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>  
+          <div class="row">
+
+          </div>
+        </div>
+    </main>
+
+{% endblock%}

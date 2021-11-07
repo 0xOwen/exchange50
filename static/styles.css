@@ -1,3 +1,16 @@
-#logo_span{
+#logo_span
+{
     font-family: 'Expletus Sans', cursive;
+}
+
+/* Homepage css */
+#carousel_image
+{
+    max-width:100%;
+    max-height:100%;
+}
+
+#home
+{
+    max-height: 80vh;
 }

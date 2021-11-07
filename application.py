@@ -5,4 +5,4 @@ app = Flask(__name__)
 
 @app.route("/")
 def layout():
-    return render_template("layout.html")
+    return render_template("home.html")
