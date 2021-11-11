@@ -11,6 +11,10 @@ def homepage():
 def register():
     return render_template("register.html")
 
+@app.route("/trade")
+def trade():
+    return render_template("currency.html")
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
