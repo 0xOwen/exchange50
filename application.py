@@ -15,6 +15,10 @@ def register():
 def trade():
     return render_template("currency.html")
 
+@app.route("/dashboard")
+def dashboard():
+    return render_template("user_dashboard.html")
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
