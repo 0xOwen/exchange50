@@ -18,16 +18,18 @@
 
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#08211B">
         <div class="container-fluid">
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" href="/index">
                 <img src="../static/eX50-logos_white.png" alt="" width="30" height="24">
                 <span id="logo_span">
                    eX50 
                 </span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" id="toggle_btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="toggle_icon"></div>
+                <div class="toggle_icon"></div>
+                <div class="toggle_icon"></div>
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -44,24 +46,8 @@
                     <li class="nav-item">
                       <a href="/dashboard" class="nav-link">Dashboard</a>
                   </li>
-
-                    <!--Just incase you need a drop down menu-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Dropdown link
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <li><a class="dropdown-item" href="#">Action</a></li>
-                          <li><a class="dropdown-item" href="#">Another action</a></li>
-                          <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                      </li>
                 </ul>
             </div>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
         </div>
     </nav>
 
@@ -72,17 +58,17 @@
     <footer class="footer-distributed">
 
 			<div class="footer-left">
-          <img src="../static/eX50-logos_black.png">
+          <img src="../static/eX50-logos_white.png">
 				<h3>eXchange50</h3>
 
 				<p class="footer-links">
 					<a href="#">Home</a>
 					|
-					<a href="#">Blog</a>
+					<a href="#">Dashboard</a>
 					|
-					<a href="#">About</a>
+					<a href="#">Trade</a>
 					|
-					<a href="#">Contact</a>
+					<a href="#">Register</a>
 				</p>
 
 				<p class="footer-company-name">© 2021 Owen Kiprop, All rights reserved.</p>
