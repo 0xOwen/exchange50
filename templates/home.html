@@ -2,11 +2,14 @@
 {% block title %}
     Home
 {% endblock title %}
+{% block style %}
+    <link rel="stylesheet" href="../static/css/home.css">
+{% endblock style %}
 
 {% block body %}
-    <main>
+    <main id="homepage">
         <div class="container">
-          <div class="row">
+          <div class="row" id="home_row1">
             <div class="col" id="home">
               <!-- Add carousel and images here-->
               <div class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-touch="false">
@@ -21,17 +24,17 @@
               </div>
             </div>
           </div>  
-          <div class="row">
+          <div class="row" id="home_row1">
             <div class="col">
               <h2 class="title_centred">
                 Forex <span> <i class="fas fa-question spin"> </i></span>
               </h2>
               <p class="text_block">
                 It's an international market where national currencies are traded for profit making.
-                It's popular, and now is the right time to dive into it.
+                It's important to learn this skill.
               </p>
             </div>  
-            <div class="row">
+            <div class="row" id="home_row2">
               <div class="col">
               <h2>Benefits of Forex trading</h2>
                 <ul>
@@ -44,7 +47,7 @@
                 </ul>
             </div>
           </div>
-          <div class="row">
+          <div class="row" id="home_row2">
             <h2 class="title_centred">Why eX50?</h2>
             <div class="col-lg-3 col-sm-12 col-md-6 d-flex justify-content-center">
               <div class="card" style="width: 18rem;">
@@ -83,13 +86,14 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row id="home_row3">
             <div class="col">
               <h2 class="title_centred">How to Trade</h2>
               <p>Now that you know the basics of forex trading, let's see how you'll trade. You should follow the following steps:</p>
             </div>
           </div>
-          <div class="row">
+          <!-- this section must have 2 rows. 1 row messes up the STRUCTURE. -->
+          <div class="row" id="home_row3">
              <div class="col-lg-6 col-md-4 col-sm-12">
                 <details>
                   <summary>Select a currency pair</summary>
@@ -115,7 +119,7 @@
                 </details>
               </div>
           </div>
-          <div class="row">
+          <div class="row" id="home_row3">
             <div class="col">
               <h3 class="title_centred">Register now to join the trend!</h3>
               <button type="button" justify-content-center>Sign up</button>

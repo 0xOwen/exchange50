@@ -1,0 +1,47 @@
+/* Homepage css */
+#home
+{
+    margin-top:5px;
+    margin-bottom:4%;
+}
+#home img
+{
+    border-radius:5%;
+}
+#carousel_image
+{
+    max-width:100%;
+    max-height:100%;
+}
+.spin{
+    -webkit-animation: rotation 2s 1 linear;
+}
+
+@-webkit-keyframes rotation {
+    from {
+            -webkit-transform: rotate(0deg);
+    }
+    to {
+            -webkit-transform: rotate(359deg);
+    }
+}
+
+.title_centred
+{
+    text-align:center;
+}
+.text_block
+{
+    text-align:justify;
+}
+
+
+
+#homepage
+{
+    color:#08211b;
+}
+#home_row2
+{
+    
+}
