@@ -1,0 +1,7 @@
+# virtual environmment
+venv/
+
+__pycache__/
+*.db
+configs
+color_palette

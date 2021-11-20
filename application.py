@@ -1,11 +1,15 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from cs50 import SQL
+import os
+
+from helpers import login_required
 
 app = Flask(__name__)
-db=SQL('sqlite:///database.db')
+db = SQL('sqlite:///database.db')
+app.secret_key = os.environ['SECRET_KEY']
 
-@app.route("/", methods = ["GET", "POST"])
+@app.route("/")
 def homepage():
     return render_template("home.html")
 
@@ -32,23 +36,31 @@ def login():
             pass
 
         
-        rows = db.execute("SELECT password FROM users WHERE username = ?", request.form.get("username"))
+        rows = db.execute("SELECT id, username, password FROM users WHERE username = ?", request.form.get("username"))
 
         if len(rows) != 1 or not check_password_hash(rows[0]["password"], request.form.get("password")):
             return "error"
             
-        # implement where user is redirected to after login
-        pass
+        session["user_id"] = rows[0]["id"]
+        session["username"] = rows[0]["username"]
+        return redirect("/")
+
+@app.route("/logout")
+def logout():
+    """Log user out"""
+    session.clear()
+    return redirect("/")
         
-
-
 @app.route("/trade")
+@login_required
 def trade():
     return render_template("currency.html")
 
+
 @app.route("/dashboard")
+@login_required
 def dashboard():
-    return render_template("user_dashboard.html")
+    return render_template("user_dashboard.html", name = session["username"])
 
 if __name__ == "__main__":
     app.debug = True
