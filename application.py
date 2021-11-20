@@ -7,7 +7,9 @@ from helpers import login_required
 
 app = Flask(__name__)
 db = SQL('sqlite:///database.db')
-app.secret_key = os.environ['SECRET_KEY']
+
+# app.config["secret_key"] = os.environ['SECRET_KEY'] or 'abcd'
+app.secret_key = os.environ["SECRET_KEY"] or 'abcd'
 
 @app.route("/")
 def homepage():
@@ -40,10 +42,10 @@ def login():
 
         if len(rows) != 1 or not check_password_hash(rows[0]["password"], request.form.get("password")):
             return "error"
-            
+        
         session["user_id"] = rows[0]["id"]
         session["username"] = rows[0]["username"]
-        return redirect("/")
+        return redirect("/dashboard")
 
 @app.route("/logout")
 def logout():
