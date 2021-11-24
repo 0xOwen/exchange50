@@ -54,7 +54,10 @@ CREATE TABLE monthly_trends
 (
     currency_from_id INT,
     currency_to_id INT,
-    trend TEXT,
+    high REAL,
+    low REAL,
+    open REAL,
+    close REAL,
     FOREIGN KEY(currency_from_id) REFERENCES currencies(id),
     FOREIGN KEY(currency_to_id) REFERENCES currencies(id) 
 );
@@ -62,7 +65,10 @@ CREATE TABLE daily_trends
 (
     currency_from_id INT,
     currency_to_id INT,
-    trend TEXT,
+    high REAL,
+    low REAL,
+    open REAL,
+    close REAL,
     FOREIGN KEY(currency_from_id) REFERENCES currencies(id),
     FOREIGN KEY(currency_to_id) REFERENCES currencies(id) 
 );

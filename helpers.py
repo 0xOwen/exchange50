@@ -4,6 +4,7 @@ import os
 from cs50 import SQL
 from flask import session, redirect
 import time
+import json
 
 db = SQL('sqlite:///database.db')
 
@@ -39,9 +40,11 @@ def convert(currency_from, currency_to):
     else:
         id_from = rows[1]["id"]
         id_to = rows[0]["id"]
-
+    
+    json.loads(response.text)
+    data = json.loads(response.text)["Realtime Currency Exchange Rate"]["5. Exchange Rate"]
     sql_insert = "INSERT INTO conversions VALUES (?, ?, ? )"
-    db.execute(sql_insert, id_from, id_to, response.text)
+    db.execute(sql_insert, id_from, id_to, data)
     return True
 
 
@@ -69,9 +72,17 @@ def monthly_trend(currency_from, currency_to):
         id_from = rows[1]["id"]
         id_to = rows[0]["id"]
 
-    sql_insert = "INSERT INTO monthly_trends VALUES (?, ?, ? )"
-    db.execute(sql_insert, id_from, id_to, response.text)
-    
+    json.loads(response.text)
+    data = json.loads(response.text)["Time Series FX (Monthly)"]
+    for i in data:
+        i = date
+        opn = data[i]["1. open"]
+        high = data[i]["2. high"]
+        low = data[i]["3. low"]
+        close = data[i]["4. close"]
+        sql_insert = "INSERT INTO monthly_trends(currency_from_id, currency_to_id, high, low, open, close, date) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        db.execute(sql_insert, id_from, id_to, high, low, opn, close,date)
+ 
     return True
 
 
@@ -99,8 +110,17 @@ def daily_trend(currency_from, currency_to):
         id_from = rows[1]["id"]
         id_to = rows[0]["id"]
 
-    sql_insert = "INSERT INTO daily_trends VALUES (?, ?, ? )"
-    db.execute(sql_insert, id_from, id_to, response.text)
+    json.loads(response.text)
+    data = json.loads(response.text)["Time Series FX (Daily)"]
+    for i in data:
+        date = i
+        opn = data[i]["1. open"]
+        high = data[i]["2. high"]
+        low = data[i]["3. low"]
+        close = data[i]["4. close"]
+        sql_insert = "INSERT INTO daily_trends(currency_from_id, currency_to_id, high, low, open, close, date) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        db.execute(sql_insert, id_from, id_to, high, low, opn, close, date)
+
     return True
 
 def get_currency_names():
@@ -154,13 +174,30 @@ def getFromApi():
     # each function accesses the API for approximately 6 minutes to get the data without exceeding limits
     # each function handles API accesses internally
 
-    time.sleep(15)
+   # time.sleep(15)
     get_daily_standings()
-    time.sleep(100)
-    get_conversions()
+   # time.sleep(100)
+    #get_conversions()
     time.sleep(100)
     get_monthly_standings()
 
+# read api data from database
+def readData(fromCur, toCur, typeOfData):
+    typeOfData.lower()
+    if typeOfData == "convert":
+        rows = db.execute("SELECT trend FROM conversions WHERE currency_from_id=? AND currency_to_id=?", fromCur, toCur)
+
+    elif typeOfData == "daily":
+        rows = db.execute("SELECT close FROM conversions WHERE currency_from_id=? AND currency_to_id=?", fromCur, toCur)
+    else:
+        rows = db.execute("SELECT close FROM conversions WHERE currency_from_id=? AND currency_to_id=?", fromCur, toCur)
+    
+    return str(rows[0]).strip("\n")
+
+# parse json text
+def parseData(jsn):
+    # data = json.loads(jsn)
+    print(jsn)
 
 if __name__ == "__main__":
     get_currency_names()
