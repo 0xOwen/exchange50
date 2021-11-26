@@ -2,9 +2,8 @@ from functools import wraps
 import requests
 import os
 from cs50 import SQL
-from flask import session, redirect
+from flask import session, redirect, jsonify
 import time
-import json
 
 db = SQL('sqlite:///database.db')
 
@@ -75,7 +74,7 @@ def monthly_trend(currency_from, currency_to):
     json.loads(response.text)
     data = json.loads(response.text)["Time Series FX (Monthly)"]
     for i in data:
-        i = date
+        date = i
         opn = data[i]["1. open"]
         high = data[i]["2. high"]
         low = data[i]["3. low"]
@@ -174,31 +173,45 @@ def getFromApi():
     # each function accesses the API for approximately 6 minutes to get the data without exceeding limits
     # each function handles API accesses internally
 
-   # time.sleep(15)
-    get_daily_standings()
-   # time.sleep(100)
+    # time.sleep(15)
+    get_monthly_standings() 
+    # time.sleep(100)
     #get_conversions()
     time.sleep(100)
-    get_monthly_standings()
+    get_daily_standings()
 
 # read api data from database
 def readData(fromCur, toCur, typeOfData):
     typeOfData.lower()
     if typeOfData == "convert":
-        rows = db.execute("SELECT trend FROM conversions WHERE currency_from_id=? AND currency_to_id=?", fromCur, toCur)
+        rows = db.execute("SELECT currency_from_id, currency_to_id, trend FROM conversions WHERE currency_from_id=? AND currency_to_id=?", fromCur, toCur)
 
     elif typeOfData == "daily":
-        rows = db.execute("SELECT close FROM conversions WHERE currency_from_id=? AND currency_to_id=?", fromCur, toCur)
+        rows = db.execute("SELECT currency_from_id, currency_to_id, open, high, low, close FROM daily_trends WHERE currency_from_id=? AND currency_to_id=?", fromCur, toCur)
     else:
-        rows = db.execute("SELECT close FROM conversions WHERE currency_from_id=? AND currency_to_id=?", fromCur, toCur)
+        rows = db.execute("SELECT currency_from_id, currency_to_id, open, high, low, close FROM monthly_trends WHERE currency_from_id=? AND currency_to_id=?", fromCur, toCur)
     
-    return str(rows[0]).strip("\n")
+    return load_data(rows[0])
 
-# parse json text
-def parseData(jsn):
-    # data = json.loads(jsn)
-    print(jsn)
+# replace currency ids with currency names
+def load_data(data):
+    data["currency_from"] = currency_details(data["currency_from_id"])
+    data["currency_to"] = currency_details(data["currency_to_id"])
+    data.pop("currency_from_id")
+    data.pop("currency_to_id")
+    return data
+
+    
+    
+# fetch currency details from db
+def currency_details(a):
+    currency = {}
+    x = db.execute("SELECT name,description FROM currencies WHERE id = ?", a)
+    currency["name"] = x[0]["name"]
+    currency["description"] = x[0]["description"]
+
+    return currency
+    
 
 if __name__ == "__main__":
-    get_currency_names()
-    getFromApi()
+    print(readData(1, 2, "daily"))
