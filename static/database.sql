@@ -1,4 +1,18 @@
-CREATE TABLE sqlite_sequence(name,seq);
+--CREATE TABLE sqlite_sequence(name,seq);
+CREATE TABLE users
+(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+username CHAR(20) NOT NULL,
+email VARCHAR(25) NOT NULL,
+password INT NOT NULL,
+date DATE DEFAULT (DATETIME())
+);
+CREATE TABLE currencies
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(10),
+    description CHAR(20) 
+);
 CREATE TABLE trades
 (
     user1 SMALLINT,
@@ -28,20 +42,7 @@ CREATE TABLE offers
     FOREIGN KEY(currency) REFERENCES currencies(id),
     FOREIGN KEY(currency_needed) REFERENCES currencies(id)
 );
-CREATE TABLE users
-(
-id INTEGER PRIMARY KEY AUTOINCREMENT,
-username CHAR(20) NOT NULL,
-email VARCHAR(25) NOT NULL,
-password INT NOT NULL,
-date DATE DEFAULT (DATETIME())
-);
-CREATE TABLE currencies
-(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name CHAR(10),
-    description CHAR(20) 
-);
+
 CREATE TABLE conversions
 (
     currency_from_id INT,
@@ -58,6 +59,7 @@ CREATE TABLE monthly_trends
     low REAL,
     open REAL,
     close REAL,
+    date date default(date('now')),
     FOREIGN KEY(currency_from_id) REFERENCES currencies(id),
     FOREIGN KEY(currency_to_id) REFERENCES currencies(id) 
 );
@@ -69,6 +71,7 @@ CREATE TABLE daily_trends
     low REAL,
     open REAL,
     close REAL,
+    date date default(date('now')),
     FOREIGN KEY(currency_from_id) REFERENCES currencies(id),
     FOREIGN KEY(currency_to_id) REFERENCES currencies(id) 
 );
