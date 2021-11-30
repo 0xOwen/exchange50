@@ -4,7 +4,6 @@ import os
 from cs50 import SQL
 from flask import session, redirect, jsonify
 import time
-import json
 
 db = SQL('sqlite:///database.db')
 
@@ -51,16 +50,14 @@ def convert(currency_from, currency_to):
 def monthly_trend(currency_from, currency_to):
     try:
         url = "https://alpha-vantage.p.rapidapi.com/query"
-
-        querystring = {"from_symbol":"EUR","to_symbol":"USD","function":"FX_MONTHLY","datatype":"json"}
+        querystring = {"from_symbol":currency_from,"to_symbol":currency_to,"function":"FX_MONTHLY","datatype":"json"}
 
         headers = {
             'x-rapidapi-host': "alpha-vantage.p.rapidapi.com",
             'x-rapidapi-key': os.getenv("API_KEY")
             }
-
         response = requests.request("GET", url, headers=headers, params=querystring)
-        print(response.text)
+        response.raise_for_status()
 
     except:
         return False
@@ -74,6 +71,7 @@ def monthly_trend(currency_from, currency_to):
         id_from = rows[1]["id"]
         id_to = rows[0]["id"]
 
+    json.loads(response.text)
     data = json.loads(response.text)["Time Series FX (Monthly)"]
     for i in data:
         date = i
@@ -85,6 +83,7 @@ def monthly_trend(currency_from, currency_to):
         db.execute(sql_insert, id_from, id_to, high, low, opn, close,date)
  
     return True
+
 
 
 def daily_trend(currency_from, currency_to):   
@@ -174,14 +173,12 @@ def getFromApi():
     # each function accesses the API for approximately 6 minutes to get the data without exceeding limits
     # each function handles API accesses internally
 
-    time.sleep(15)
+    # time.sleep(15)
     get_monthly_standings() 
     # time.sleep(100)
-    # get_conversions()
-    # time.sleep(100)
-    # get_daily_standings()
+    #get_conversions()
+    time.sleep(100)
+    get_daily_standings()
 
 if __name__ == "__main__":
-    #print(readData(1, 2, "daily"))
-    get_currency_names()
-    getFromApi()
+    print(readData(1, 2, "daily"))
