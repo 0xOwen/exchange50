@@ -181,39 +181,6 @@ def getFromApi():
     # time.sleep(100)
     # get_daily_standings()
 
-# read api data from database
-def readData(fromCur, toCur, typeOfData):
-    typeOfData.lower()
-    if typeOfData == "convert":
-        rows = db.execute("SELECT currency_from_id, currency_to_id, trend FROM conversions WHERE currency_from_id=? AND currency_to_id=?", fromCur, toCur)
-
-    elif typeOfData == "daily":
-        rows = db.execute("SELECT currency_from_id, currency_to_id, open, high, low, close FROM daily_trends WHERE currency_from_id=? AND currency_to_id=?", fromCur, toCur)
-    else:
-        rows = db.execute("SELECT currency_from_id, currency_to_id, open, high, low, close FROM monthly_trends WHERE currency_from_id=? AND currency_to_id=?", fromCur, toCur)
-    
-    return load_data(rows[0])
-
-# replace currency ids with currency names
-def load_data(data):
-    data["currency_from"] = currency_details(data["currency_from_id"])
-    data["currency_to"] = currency_details(data["currency_to_id"])
-    data.pop("currency_from_id")
-    data.pop("currency_to_id")
-    return data
-
-    
-    
-# fetch currency details from db
-def currency_details(a):
-    currency = {}
-    x = db.execute("SELECT name,description FROM currencies WHERE id = ?", a)
-    currency["name"] = x[0]["name"]
-    currency["description"] = x[0]["description"]
-
-    return currency
-    
-
 if __name__ == "__main__":
     #print(readData(1, 2, "daily"))
     get_currency_names()

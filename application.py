@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from cs50 import SQL
 import os
+from tools import fetch_daily, fetch_monthly, get_conversion
 
 from helpers import login_required
 
@@ -53,16 +54,26 @@ def logout():
     session.clear()
     return redirect("/")
         
-@app.route("/trade")
+@app.route("/currency")
 @login_required
-def trade():
-    return render_template("currency.html")
+def currency():
+    if request.method == "GET":
+        monthly = fetch_monthly(3, 1)
+        daily = fetch_daily(3, 1)
+        conversion = get_conversion(3, 1)
+        return render_template("currency.html",monthly = monthly, daily = daily, conversion = conversion)
+    elif request.method == "POST":
+        pass
 
 
-@app.route("/dashboard")
+@app.route("/dashboard", methods = ["GET", "POST"])
 @login_required
 def dashboard():
-    return render_template("user_dashboard.html", name = session["username"])
+    if request.method == "GET":
+        return render_template("user_dashboard.html", name = session["username"])
+    elif request.method == "POST":
+        pass
+
 
 if __name__ == "__main__":
     app.debug = True
