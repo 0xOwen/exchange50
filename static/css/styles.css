@@ -31,29 +31,28 @@ li .nav-link
 {
     color:#dbdbdb;
 }
-button 
-{
+button {
     letter-spacing: .2rem;
 	text-transform: uppercase;
     font-weight: 600;
     border: 3px solid;
     border-radius: 40px;
-    height:100%;
+	float: left;
+	width:fit-content;
+	padding: 1% 2%;
 	background: none;
 	color: inherit;
 	z-index: 1;
 	-webkit-transition: border-color .3s, background-color .3s;
 	transition: border-color .3s, background-color .3s;
 }
-button:hover 
-{
+button:hover {
 	border-color: #ef233c;
 	background-color: rgba(239, 35, 60, 0.1);
     -webkit-transform: translate3d(0, -10%, 0);
 	transform: translate3d(0, -10%, 0);
 }
-button:hover::after 
-{
+button:hover::after {
 	opacity: 1;
 	-webkit-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
@@ -62,15 +61,6 @@ a
 {
     color: inherit;
     text-decoration: inherit;
-}
-button#btnlogout
-{
-    color: #ef233c;
-    border-color: #dbdbdb;
-}
-button#btnlogout:hover
-{
-    border-color: #ef233c;
 }
 
 
