@@ -34,21 +34,35 @@
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">     
                     <li class="nav-item">
-                        <a href="#" class="nav-link active">Home</a>
+                        <a href="/" class="nav-link active">Home</a>
                     </li>
+                    {% if session.user_id %}
                     <li class="nav-item">
-                     <a href="/register" class="nav-link">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/trade" class="nav-link">Trade</a>
+                        <a href="/currency" class="nav-link">Trade</a>
                     </li>
                     <li class="nav-item">
                       <a href="/dashboard" class="nav-link">Dashboard</a>
-                  </li>
+                    </li>
+                  </ul>
+                  
+                    <div class="d-flex">
+                      <a href="/logout">
+                        <button id="btnlogout">log out</button>
+                      </a>
+                    </div>
+                    {% else %}
+                    <li class="nav-item">
+                      <a href="/register" class="nav-link">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="/register" class="nav-link">Sign up</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
+            
         </div>
     </nav>
 
