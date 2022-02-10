@@ -57,13 +57,7 @@ def logout():
 @app.route("/currency")
 @login_required
 def currency():
-    if request.method == "GET":
-        monthly = fetch_monthly(3, 1)
-        daily = fetch_daily(3, 1)
-        conversion = get_conversion(3, 1)
-        return render_template("currency.html",monthly = monthly, daily = daily, conversion = conversion)
-    elif request.method == "POST":
-        pass
+    return render_template("currency.html")
 
 
 @app.route("/dashboard", methods = ["GET", "POST"])

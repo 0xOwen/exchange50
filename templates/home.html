@@ -121,11 +121,21 @@
           </div>
           <div class="row" id="home_row3">
             <div class="col">
-              <h3 class="title_centred">Add forex to your skill repertoire!</h3>
-              <div id="action">
-                <a href="/register">
-                  <button type="button" id="action">Sign up</button>
-                </a>
+              {% if session.user_id %}
+                <h3 class="title_centred">Trade!</h3>
+                <div id="action">
+                  <a href="/trade">
+                    <button type="button" id="action">Trade</button>
+                  </a>
+              {% else %}
+                    <h3 class="title_centred">Add forex to your skill repertoire!</h3>
+                    <div id="action">
+                      <a href="/register">
+                        <button type="button" id="action">Sign up</button>
+                      </a>
+              {% endif %}
+              
+               
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import os
 from cs50 import SQL
 from flask import session, redirect, jsonify
 import time
+import json
 
 db = SQL('sqlite:///database.db')
 
@@ -133,7 +134,7 @@ def get_currency_names():
     print(currency_list)
 
 def get_daily_standings():
-    k = 0                       # keep track of API calls to attain limit of 5/min , independent of loop iterators
+    k = 0                       # keeps track of API calls to attain limit of 5/min
     for i in range(0, len(currency_list)):
         for j in range(0, len(currency_list)):
             if i == j:
@@ -145,7 +146,7 @@ def get_daily_standings():
             k += 1
 
 def get_conversions():
-    k = 0                       # keep track of API calls to attain limit of 5/min , independent of loop iterators
+    k = 0                       # keeps track of API calls to attain limit of 5/min
     for i in range(0, len(currency_list)):
         for j in range(0, len(currency_list)):
             if i == j:
@@ -157,7 +158,7 @@ def get_conversions():
             k += 1
 
 def get_monthly_standings():
-    k = 0                       # keep track of API calls to attain limit of 5/min , independent of loop iterators
+    k = 0                       # keeps track of API calls to attain limit of 5/min
     for i in range(0, len(currency_list)):
         for j in range(0, len(currency_list)):
             if i == j:
@@ -170,15 +171,20 @@ def get_monthly_standings():
             k += 1
 
 def getFromApi():
-    # each function accesses the API for approximately 6 minutes to get the data without exceeding limits
-    # each function handles API accesses internally
+    """ 
+    each function accesses the the currency API for 
+    approximately 6 minutes, to get the data 
 
-    # time.sleep(15)
+    Each function handles API accesses internally
+    """
+
+    get_currency_names()
+    time.sleep(15)
     get_monthly_standings() 
-    # time.sleep(100)
-    #get_conversions()
+    time.sleep(100)
+    get_conversions()
     time.sleep(100)
     get_daily_standings()
 
 if __name__ == "__main__":
-    print(readData(1, 2, "daily"))
+    getFromApi()

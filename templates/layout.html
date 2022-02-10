@@ -76,13 +76,16 @@
 				<h3>eXchange50</h3>
 
 				<p class="footer-links">
-					<a href="#">Home</a>
+					<a href="/">Home</a>
 					|
-					<a href="#">Dashboard</a>
+          {% if session.user_id %}
+					<a href="/dashboard">Dashboard</a>
 					|
-					<a href="#">Trade</a>
-					|
-					<a href="#">Register</a>
+					<a href="/currency">Trade</a>
+
+          {% else %}
+					<a href="/register">Register</a>
+          {% endif %}
 				</p>
 
 				<p class="footer-company-name">© 2021 Owen Kiprop, All rights reserved.</p>
@@ -91,7 +94,7 @@
 			<div class="footer-center">
 				<div>
 					<i class="fa fa-envelope"></i>
-					<p><a href="mailto:support@eX50.com">support@eX50.com</a></p>
+					<p><a href="mailto:okiprop@outlook.com">okiprop@outlook.com</a></p>
 				</div>
 			</div>
 			<div class="footer-right">
